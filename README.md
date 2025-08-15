@@ -1,4 +1,4 @@
-"# StudySync-app-web" 
+### Welcome to the StudySync web app
 
 ### UML Diagram
 
