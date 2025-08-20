@@ -1,21 +1,49 @@
 package dev.juanito.studysync.model;
 
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Entity
+@Table(name = "routineLogs")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class RoutineLog {
+
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "actual_hours", nullable = false)
+    private Double actualHours;
+
+    @Column(name = "date", nullable = false)
+    private LocalDateTime date;
+
+    @Column(name = "notes")
+    private String notes;
+
     @ManyToOne
-    private Long user_id;
-    @OneToOne(mappedBy = "routineLog_id")
-    private Long planning_id;
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @ManyToOne
-    private Long subcjet_id;
-    private double actualHours;
-    private java.sql.Date date;
-    private String observation;
+    @JoinColumn(name = "subject_id")
+    private Subject subject;
+
+    @OneToOne(mappedBy = "routineLog")
+    private Planning planning;
 }

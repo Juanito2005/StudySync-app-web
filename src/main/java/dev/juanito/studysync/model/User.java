@@ -2,6 +2,7 @@ package dev.juanito.studysync.model;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -10,28 +11,35 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users")
-@AllArgsConstructor
+@AllArgsConstructor //Dejo estas anotaciones porque los usuarios se cargan manualmente en la base de datos
 @NoArgsConstructor
 @Getter
+@Setter
 public class User {
+
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
-    // The mappedBy function indicates that the other entities already have a user_id column
-    @OneToMany(mappedBy = "user_id")
-    // This must be a List<> cause is "much" objects are going to be used in the relationship
-    private List<Subject> subjects;
 
-    @OneToMany(mappedBy = "user_id")
-    private List<RoutineLog> routineLogs;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @OneToMany(mappedBy = "user_id")
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "password", nullable = false)
+    private String password; //This will be gestionated by the UserService as a Hash
+
+    @OneToMany(mappedBy = "user") //It's "user" instead "user_id" cause mappedBy references at the atribute in the class code not in the table fo the DB
+    private List<Subject> subjects; //It's a List cause 1 user has a "List/Lot" of Subjects not a single Subject
+
+    @OneToMany(mappedBy = "user")
     private List<Planning> plannings;
 
-    private String username;
-    private String password;
-    private String email;
+    @OneToMany(mappedBy = "user")
+    private List<RoutineLog> routineLogs;
 }
