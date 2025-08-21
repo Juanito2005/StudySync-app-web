@@ -18,4 +18,6 @@ public interface UserService {
 
     User updatedUserById(Long id, UserUpdateDto userUpdateDto);
 
+    // Optional<User> findUserByEmail(String email);
+
 }
