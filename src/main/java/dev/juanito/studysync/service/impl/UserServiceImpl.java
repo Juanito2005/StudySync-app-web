@@ -2,12 +2,17 @@ package dev.juanito.studysync.service.impl;
 
 import dev.juanito.studysync.model.User;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import dev.juanito.studysync.dto.UserRegistrationDto;
+import dev.juanito.studysync.dto.UserUpdateDto;
 import dev.juanito.studysync.exception.EmailAlreadyExistException;
+import dev.juanito.studysync.exception.InvalidFieldsException;
+import dev.juanito.studysync.exception.UserIdNotFoundException;
 import dev.juanito.studysync.repository.UserRepository;
 import dev.juanito.studysync.service.UserService;
 
@@ -21,17 +26,17 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    public void checkIfEmailExist(String email) {
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new EmailAlreadyExistException("A user with this email already exist");
+        }
+    }
+
     /* Returning a user instead nothing (void) is key because we could know important things such as the Id or date that
     The use ws created */
     @Override
     public User registerUser(UserRegistrationDto userRegistrationDto) {
-        /*
-         * Dejemos esta exception pendiente, podríamos separarla para después reutilizarla
-         * Y seguir el principio Single Responsability Principle
-         */
-        if (userRepository.findByEmail(userRegistrationDto.getEmail()).isPresent()) {
-            throw new EmailAlreadyExistException("A user with this email already exist");
-        }
+        checkIfEmailExist(userRegistrationDto.getEmail());
         User user = new User();
         user.setName(userRegistrationDto.getName());
         user.setEmail(userRegistrationDto.getEmail());
@@ -40,37 +45,45 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findUserById(Long id) {
-        if (userRepository.findById(id).) {
-            
+    public User findUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException("The user Id has not been found"));
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        User user = findUserById(id);
+        userRepository.delete(user);
+    }
+
+    public void checkTheParametersToUpdate(UserUpdateDto userUpdateDto) {
+        List<String> errors = new ArrayList<>();
+
+        List<String> fields = Arrays.asList(userUpdateDto.getName(),userUpdateDto.getEmail());
+        /* Lambda expressions: chiquititos methods in line that only are executing in the line they were created
+         * Their structure is this: Parameter -> bodyMethod. The parameter can have any name you want
+        */
+
+        fields.stream().filter(field -> field != null && field.isBlank()).forEach(field -> errors.add("Un campo no puede estar en blanco."));
+
+        if (!errors.isEmpty()) {
+            throw new InvalidFieldsException(String.join(", ", errors));
         }
     }
 
-    
-    // @Override
-    // public Optional<User> findUserById(Long id) {
-        //     // Here you will write the logic to find a user by their ID.
-    //     // 1. Use the userRepository to find the user.
-    //     return Optional.empty();
-    // }
+    @Override
+    public User updatedUserById(Long id, UserUpdateDto userUpdateDto) {
+        User user = findUserById(id);
+        checkTheParametersToUpdate(userUpdateDto);
 
-    // @Override
-    // public void deleteUserById(Long id) {
-        //     // Here you will write the logic to delete a user by their ID.
-        //     // 1. Check if the user exists.
-    //     // 2. If they exist, delete them using the userRepository.
-    // }
+        if (userUpdateDto.getName() != null) {
+            user.setName(userUpdateDto.getName());
+        }
 
-    // @Override
-    // public User updatedUserById(Long id, UserRegistrationDto userRegistrationDto) {
-        //     // Here you will write the logic to update a user.
-        //     // 1. Find the existing user using their ID.
-        //     // 2. Update the user's information from the DTO.
-        //     // 3. Save the updated user in the database.
-    //     // 4. Return the updated User entity.
-    //     return null;
-    // }
+        if (userUpdateDto.getEmail() != null) {
+            user.setEmail(userUpdateDto.getEmail());
+        }
+
+        userRepository.save(user);
+        return user;
+    }
 }
-
-// @Override
-// public Optional<User> findUserByEmail(String email) {}
