@@ -19,7 +19,8 @@ import dev.juanito.studysync.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
-    //Dependency injection so this class isn't accopled to the repository
+    // Dependency injection so this class isn't accopled to the repository
+    // @AutoWired is not recommended
     private final UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {

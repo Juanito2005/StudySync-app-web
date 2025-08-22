@@ -7,6 +7,7 @@ import dev.juanito.studysync.dto.UserRegistrationDto;
 import dev.juanito.studysync.dto.UserUpdateDto;
 import dev.juanito.studysync.model.User;
 import dev.juanito.studysync.service.UserService;
+import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody UserRegistrationDto userRegistrationDto) {
+    public ResponseEntity<User> registerUser(@Valid @RequestBody UserRegistrationDto userRegistrationDto) {
         User newUser = userService.registerUser(userRegistrationDto);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
@@ -39,9 +40,9 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUserByItsId(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUserByItsId(@PathVariable Long id) {
         userService.deleteUserById(id);
-        return new ResponseEntity<>("The user has been deleted succesfully", HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/update/{id}")
