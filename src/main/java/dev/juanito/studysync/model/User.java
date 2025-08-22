@@ -15,7 +15,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "users")
-@AllArgsConstructor //Dejo estas anotaciones porque los usuarios se cargan manualmente en la base de datos
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
