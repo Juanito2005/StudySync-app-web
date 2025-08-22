@@ -57,14 +57,13 @@ public class UserServiceImpl implements UserService {
 
     public void checkTheParametersToUpdate(UserUpdateDto userUpdateDto) {
         List<String> errors = new ArrayList<>();
-
         List<String> fields = Arrays.asList(userUpdateDto.getName(),userUpdateDto.getEmail());
         /* Lambda expressions: chiquititos methods in line that only are executing in the line they were created
          * Their structure is this: Parameter -> bodyMethod. The parameter can have any name you want
         */
-
-        fields.stream().filter(field -> field != null && field.isBlank()).forEach(field -> errors.add("Un campo no puede estar en blanco."));
-
+        fields.stream()
+                .filter(field -> field != null && field.isBlank())
+                .forEach(field -> errors.add("Un campo no puede estar en blanco."));
         if (!errors.isEmpty()) {
             throw new InvalidFieldsException(String.join(", ", errors));
         }
@@ -74,15 +73,12 @@ public class UserServiceImpl implements UserService {
     public User updatedUserById(Long id, UserUpdateDto userUpdateDto) {
         User user = findUserById(id);
         checkTheParametersToUpdate(userUpdateDto);
-
         if (userUpdateDto.getName() != null) {
             user.setName(userUpdateDto.getName());
         }
-
         if (userUpdateDto.getEmail() != null) {
             user.setEmail(userUpdateDto.getEmail());
         }
-
         userRepository.save(user);
         return user;
     }
