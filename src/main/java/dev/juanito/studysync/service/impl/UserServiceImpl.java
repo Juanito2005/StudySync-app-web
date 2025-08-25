@@ -2,16 +2,11 @@ package dev.juanito.studysync.service.impl;
 
 import dev.juanito.studysync.model.User;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import dev.juanito.studysync.dto.UserRegistrationDto;
 import dev.juanito.studysync.dto.UserUpdateDto;
 import dev.juanito.studysync.exception.EmailAlreadyExistException;
-import dev.juanito.studysync.exception.InvalidFieldsException;
 import dev.juanito.studysync.exception.UserIdNotFoundException;
 import dev.juanito.studysync.repository.UserRepository;
 import dev.juanito.studysync.service.UserService;
@@ -25,12 +20,6 @@ public class UserServiceImpl implements UserService {
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-    }
-
-    public void checkIfEmailExist(String email) {
-        if (userRepository.findByEmail(email).isPresent()) {
-            throw new EmailAlreadyExistException("A user with this email already exist");
-        }
     }
 
     /* Returning a user instead nothing (void) is key because we could know important things such as the Id or date that
@@ -56,31 +45,23 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(user);
     }
 
-    public void checkTheParametersToUpdate(UserUpdateDto userUpdateDto) {
-        List<String> errors = new ArrayList<>();
-        List<String> fields = Arrays.asList(userUpdateDto.getName(),userUpdateDto.getEmail());
-        /* Lambda expressions: chiquititos methods in line that only are executing in the line they were created
-         * Their structure is this: Parameter -> bodyMethod. The parameter can have any name you want
-        */
-        fields.stream()
-                .filter(field -> field != null && field.isBlank())
-                .forEach(field -> errors.add("Un campo no puede estar en blanco."));
-        if (!errors.isEmpty()) {
-            throw new InvalidFieldsException(String.join(", ", errors));
-        }
-    }
-
     @Override
     public User updatedUserById(Long id, UserUpdateDto userUpdateDto) {
         User user = findUserById(id);
-        checkTheParametersToUpdate(userUpdateDto);
+        if (userUpdateDto.getEmail() != null) {
+            checkIfEmailExist(userUpdateDto.getEmail());
+            user.setEmail(userUpdateDto.getEmail());
+        }
         if (userUpdateDto.getName() != null) {
             user.setName(userUpdateDto.getName());
         }
-        if (userUpdateDto.getEmail() != null) {
-            user.setEmail(userUpdateDto.getEmail());
-        }
-        userRepository.save(user);
-        return user;
+        return userRepository.save(user);
     }
+
+    public void checkIfEmailExist(String email) {
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new EmailAlreadyExistException("A user with this email already exist");
+        }
+    }
+
 }

@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import dev.juanito.studysync.exception.EmailAlreadyExistException;
-import dev.juanito.studysync.exception.InvalidFieldsException;
+import dev.juanito.studysync.exception.SubjectIdNotFoundException;
+import dev.juanito.studysync.exception.SubjectNameAlreadyExistsException;
 import dev.juanito.studysync.exception.UserIdNotFoundException;
 
 @ControllerAdvice
@@ -40,8 +41,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(InvalidFieldsException.class)
-    public ResponseEntity<String> handleInvalidFieldsException(InvalidFieldsException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(SubjectIdNotFoundException.class)
+    public ResponseEntity<String> handleSubjectIdNotFoundException(SubjectIdNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(SubjectNameAlreadyExistsException.class)
+    public ResponseEntity<String> handleSubjectNameAlreadyExistsException(SubjectNameAlreadyExistsException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 }
