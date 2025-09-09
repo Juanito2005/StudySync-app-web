@@ -54,24 +54,21 @@ public class JwtService {
         }
     }
 
-    // // Método para obtener el usuario del token (lo necesitaremos después)
-    // public String getSubject(String token) {
-    //     return Jwts.parserBuilder()
-    //             .setSigningKey(secretKey.getBytes())
-    //             .build()
-    //             .parseClaimsJws(token)
-    //             .getBody()
-    //             .getSubject(); // Obtiene el "subject" (email en nuestro caso)
-    // }
+    public String getSubject(String token) {
+    return Jwts.parser()
+            .verifyWith(Keys.hmacShaKeyFor(secretKey.getBytes()))
+            .build()
+            .parseSignedClaims(token)
+            .getPayload()
+            .getSubject();
+    }
 
-    // // Método para obtener el ID del usuario del token (también lo necesitaremos)
-    // public Long getUserIdFromToken(String token) {
-    //     Claims claims = Jwts.parserBuilder()
-    //             .setSigningKey(secretKey.getBytes())
-    //             .build()
-    //             .parseClaimsJws(token)
-    //             .getBody();
-    //     // Necesitaremos convertir el Object a Long
-    //     return ((Number) claims.get("id")).longValue();
-    // }
+    public Long getUserIdFromToken(String token) {
+        Claims claims = Jwts.parser()
+                .verifyWith(Keys.hmacShaKeyFor(secretKey.getBytes()))
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+        return ((Number) claims.get("id")).longValue();
+    }
 }
