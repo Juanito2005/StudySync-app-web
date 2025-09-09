@@ -15,7 +15,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "users")
-@AllArgsConstructor //Dejo estas anotaciones porque los usuarios se cargan manualmente en la base de datos
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -28,7 +28,7 @@ public class User {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "password", nullable = false)
