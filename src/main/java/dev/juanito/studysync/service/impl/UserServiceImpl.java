@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import dev.juanito.studysync.dto.UserRegistrationDto;
 import dev.juanito.studysync.dto.UserUpdateDto;
 import dev.juanito.studysync.exception.EmailAlreadyExistException;
+import dev.juanito.studysync.exception.UserEmailNotFoundException;
 import dev.juanito.studysync.exception.UserIdNotFoundException;
 import dev.juanito.studysync.repository.UserRepository;
 import dev.juanito.studysync.service.UserService;
@@ -58,10 +59,16 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new UserEmailNotFoundException("The email doesn't exists"));
+    }
+
     public void checkIfEmailExist(String email) {
         if (userRepository.findByEmail(email).isPresent()) {
             throw new EmailAlreadyExistException("A user with this email already exist");
         }
     }
+
 
 }

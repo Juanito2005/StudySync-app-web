@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import dev.juanito.studysync.exception.EmailAlreadyExistException;
 import dev.juanito.studysync.exception.SubjectIdNotFoundException;
 import dev.juanito.studysync.exception.SubjectNameAlreadyExistsException;
+import dev.juanito.studysync.exception.UserEmailNotFoundException;
 import dev.juanito.studysync.exception.UserIdNotFoundException;
 
 @ControllerAdvice
@@ -49,5 +50,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(SubjectNameAlreadyExistsException.class)
     public ResponseEntity<String> handleSubjectNameAlreadyExistsException(SubjectNameAlreadyExistsException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(UserEmailNotFoundException.class)
+    public ResponseEntity<String> handleUserEmailNotFoundException(UserEmailNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
