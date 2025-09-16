@@ -2,6 +2,7 @@ package dev.juanito.studysync.service.impl;
 
 import dev.juanito.studysync.model.User;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import dev.juanito.studysync.dto.UserRegistrationDto;
@@ -18,9 +19,11 @@ public class UserServiceImpl implements UserService {
     // Dependency injection so this class isn't accopled to the repository
     // @AutoWired is not recommended
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /* Returning a user instead nothing (void) is key because we could know important things such as the Id or date that
@@ -31,7 +34,8 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setName(userRegistrationDto.getName());
         user.setEmail(userRegistrationDto.getEmail());
-        user.setPassword(userRegistrationDto.getPassword());
+        String hashedPassword = passwordEncoder.encode(userRegistrationDto.getPassword());
+        user.setPassword(hashedPassword);
         return userRepository.save(user);
     }
 
@@ -69,6 +73,5 @@ public class UserServiceImpl implements UserService {
             throw new EmailAlreadyExistException("A user with this email already exist");
         }
     }
-
 
 }

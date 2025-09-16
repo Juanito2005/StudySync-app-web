@@ -2,6 +2,7 @@ package dev.juanito.studysync.security.jwt;
 
 import java.io.IOException;
 
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -22,8 +23,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.jwtService = jwtService;
     }
 
+
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
         
         // Step 1: Get the Authorization header
@@ -39,10 +41,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        // Step 3: Extract the token (remove "Bearer " prefix)
+        // Step 3: If everything is ok extract the token (remove "Bearer " prefix)
         String jwt = authHeader.substring(7);
 
-        // Step 4: Validate token and set authentication context
+        // Step 4: VALIDATE TOKEN (with the method I created before in JwtService) and set authentication context
         if (jwtService.validateToken(jwt)) {
             // Extract user information from token
             String userEmail = jwtService.getSubject(jwt);
