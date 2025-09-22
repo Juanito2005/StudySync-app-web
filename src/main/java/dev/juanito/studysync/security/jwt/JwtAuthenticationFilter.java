@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import dev.juanito.studysync.security.UserPrincipal;
+import io.jsonwebtoken.lang.Collections;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -54,10 +55,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             UserPrincipal userPrincipal = new UserPrincipal(userEmail, userId);
             
             // Create authentication object
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userPrincipal, null, null);
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userPrincipal, null, Collections.emptyList());
             
-            // Tell Spring Security who is authenticated
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            if (SecurityContextHolder.getContext().getAuthentication() == null) {
+                // Tell Spring Security who is authenticated
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
         
         // Continue to the next filter/controller

@@ -27,7 +27,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
         // No sessions for JWT
         .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        // Here tyou can add the endpoints you want to be unprotected
+        // Here tyou can add the endpoints you want to be unprotected just like SWAGGER
         .authorizeHttpRequests(authz -> authz.requestMatchers("/api/users/register", "/api/auth/login").permitAll()
         .anyRequest().authenticated())
         // Here we are using the personalized JWT we created instead the given by Spring Security

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.juanito.studysync.dto.AuthResponseDto;
 import dev.juanito.studysync.dto.UserLoginDto;
 import dev.juanito.studysync.exception.UserEmailNotFoundException;
 import dev.juanito.studysync.model.User;
@@ -30,18 +31,23 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> isValidCredentials(@Valid @RequestBody UserLoginDto userLoginDto) {
+    public ResponseEntity<AuthResponseDto> isValidCredentials(@Valid @RequestBody UserLoginDto userLoginDto) {
         try {
             User user = userService.findUserByEmail(userLoginDto.getEmail());
             if (passwordEncoder.matches(userLoginDto.getPassword(), user.getPassword())) {
                 String token = jwtService.createToken(user);
-                return new ResponseEntity<>(token, HttpStatus.OK);
+
+                AuthResponseDto response = new AuthResponseDto(token);
+                return new ResponseEntity<>(response, HttpStatus.OK);
+
             } else {
-                return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
+                AuthResponseDto response = new AuthResponseDto(null, "Invalid credentials");
+                return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
             }
 
         } catch (UserEmailNotFoundException ex) {
-            return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
+            AuthResponseDto response = new AuthResponseDto(null, "Invalid credentials");
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
         }
     }
 }

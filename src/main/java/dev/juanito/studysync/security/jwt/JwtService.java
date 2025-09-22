@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,8 @@ import lombok.Getter;
 @Getter
 @Component
 public class JwtService {
+
+    private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
     
     @Value("${jwt.secret}")
     private String secretKey;
@@ -63,7 +67,7 @@ public class JwtService {
                 .getPayload();
             return true;
         } catch (JwtException e) {
-            System.err.println("Token validation failed: " + e.getMessage());
+            logger.error("Token validation failed: {}", e.getMessage());
             return false;
         }
     }
