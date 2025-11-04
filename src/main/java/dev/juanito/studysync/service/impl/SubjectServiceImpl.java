@@ -1,5 +1,7 @@
 package dev.juanito.studysync.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import dev.juanito.studysync.model.Subject;
 import dev.juanito.studysync.model.User;
 import dev.juanito.studysync.repository.SubjectRepository;
 import dev.juanito.studysync.repository.UserRepository;
+import dev.juanito.studysync.security.UserPrincipal;
 import dev.juanito.studysync.service.SubjectService;
 
 @Service
@@ -26,64 +29,62 @@ public class SubjectServiceImpl implements SubjectService{
         this.userRepository = userRepository;
     }
 
-    // @Override
-    // public Subject createSubject(SubjectCreationDto subjectCreationDto) {
-    //     // 1. Obtiene el usuario autenticado del contexto de seguridad
-    //     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    //     String userEmail = authentication.getName();
-    //     User user = userRepository.findByEmail(userEmail)
-    //             .orElseThrow(() -> new UserIdNotFoundException("Authenticated user not found"));
-
-    //     // 2. Valida si el nombre de la materia ya existe para este usuario
-    //     if (subjectRepository.findByNameAndUser(subjectCreationDto.getName(), user).isPresent()) {
-    //         throw new SubjectNameAlreadyExistsException("A subject with this name already exists for this user.");
-    //     }
-
-    //     // 3. Crea la materia y la asocia con el usuario
-    //     Subject subject = new Subject();
-    //     subject.setName(subjectCreationDto.getName());
-    //     subject.setColorHEX(subjectCreationDto.getColor());
-    //     subject.setUser(user);
-
-    //     return subjectRepository.save(subject);
-    // }
+    // A Security Context is created for avoid the mess of being calling the db all the time
+    private User getAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        return userRepository.findById(userPrincipal.getUserId())
+            .orElseThrow(() -> new UserIdNotFoundException("Authenticated user not found"));
+    }
 
     @Override
     public Subject createSubject(SubjectCreationDto subjectCreationDto) {
-        checkIfSubjectNameExists(subjectCreationDto.getName());
+        User user = getAuthenticatedUser();
+        if (subjectRepository.findByNameAndUser(subjectCreationDto.getName(), user).isPresent()) {
+            throw new SubjectNameAlreadyExistsException("You already have a subject with this name");
+        }
         Subject subject = new Subject();
         subject.setName(subjectCreationDto.getName());
         subject.setColorHEX(subjectCreationDto.getColor());
+        subject.setUser(user);
         return subjectRepository.save(subject);
     }
 
     @Override
     public Subject findSubjectById(Long id) {
-        return subjectRepository.findById(id).orElseThrow(() -> new SubjectIdNotFoundException("The subject has not been found"));
+        User user = getAuthenticatedUser();
+        return subjectRepository.findByIdAndUser(id, user)
+            .orElseThrow(() -> new SubjectIdNotFoundException("Subjectcnot found or access denied"));
     }
 
     @Override
     public void deleteSubjectById(Long id) {
-        Subject subject = findSubjectById(id);
+        User user = getAuthenticatedUser();
+        // Since an Optional type is returned, the exceptions must been handle
+        Subject subject = subjectRepository.findByIdAndUser(id, user)
+            .orElseThrow(() -> new SubjectIdNotFoundException("Subject not found or access denied"));
         subjectRepository.delete(subject);
     }
 
     @Override
     public Subject updateSubjectById(SubjectUpdateDto subjectUpdateDto, Long id) {
-        Subject subject = findSubjectById(id);
+        User user = getAuthenticatedUser();
+
+        Subject subject = subjectRepository.findByIdAndUser(id, user)
+            .orElseThrow(() -> new SubjectIdNotFoundException("Subject not found or access denied"));
+
         if (subjectUpdateDto.getName() != null) {
-            checkIfSubjectNameExists(subjectUpdateDto.getName());
+            Optional<Subject> existingSubject = subjectRepository.findByNameAndUser(subjectUpdateDto.getName(), user);
+            if (existingSubject.isPresent() && !existingSubject.get().getId().equals(id)) {
+                throw new SubjectNameAlreadyExistsException("You already have a subject with this name");
+            }
             subject.setName(subjectUpdateDto.getName());
         }
+
         if (subjectUpdateDto.getColor() != null) {
             subject.setColorHEX(subjectUpdateDto.getColor());
         }
-        return subjectRepository.save(subject);
-    }
 
-    public void checkIfSubjectNameExists(String name) {
-        if (subjectRepository.findByName(name).isPresent()) {
-            throw new SubjectNameAlreadyExistsException("Cannot be created a subject with an existing subject name");
-        }
+        return subjectRepository.save(subject);
     }
 }
