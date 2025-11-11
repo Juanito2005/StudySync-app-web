@@ -38,7 +38,35 @@ public class AuthenticationHelper {
                 .orElseThrow(() -> new UserIdNotFoundException("Authenticated user with id " + userPrincipal.getUserId() + " not found in database"));
     }
 
+    /**
+     * Obtiene el ID del usuario autenticado sin necesidad de hacer una consulta a la BD.
+     * Útil cuando solo necesitas el ID para queries.
+     *
+     * @return Long - El ID del usuario autenticado
+     */
     public Long getAuthenticatedUserId() {
-        
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !(authentication.getPrincipal() instanceof UserPrincipal)) {
+            throw new IllegalStateException("No valid authentication found in SecurityContext");
+        }
+
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        return userPrincipal.getUserId();
+    }
+
+    /**
+     * Obtiene el email (username) del usuario autenticado.
+     *
+     * @return String - El email del usuario autenticado
+     */
+    public String getAuthenticatedUserEmail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null) {
+            throw new IllegalStateException("No authentication found in SecurityContext");
+        }
+
+        return authentication.getName();
     }
 }
