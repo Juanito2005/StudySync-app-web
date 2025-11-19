@@ -4,6 +4,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import dev.juanito.studysync.dto.SubjectCreationDto;
+import dev.juanito.studysync.dto.SubjectResponseDto;
 import dev.juanito.studysync.dto.SubjectUpdateDto;
 import dev.juanito.studysync.exception.SubjectIdNotFoundException;
 import dev.juanito.studysync.exception.SubjectNameAlreadyExistsException;
@@ -24,8 +25,18 @@ public class SubjectServiceImpl implements SubjectService{
         this.authenticationHelper = authenticationHelper;
     }
 
+    private SubjectResponseDto toResponseDto(Subject subject) {
+        SubjectResponseDto dto = new SubjectResponseDto();
+        dto.setId(subject.getId());
+        dto.setName(subject.getName());
+        dto.setColorHEX(subject.getColorHEX());
+        dto.setUserId(subject.getUser().getId());
+        dto.setUserName(subject.getUser().getName());
+        return dto;
+    }
+
     @Override
-    public Subject createSubject(SubjectCreationDto subjectCreationDto) {
+    public SubjectResponseDto createSubject(SubjectCreationDto subjectCreationDto) {
         User user = authenticationHelper.getAuthenticatedUser();
         if (subjectRepository.findByNameAndUser(subjectCreationDto.getName(), user).isPresent()) {
             throw new SubjectNameAlreadyExistsException("You already have a subject with this name");
@@ -34,14 +45,16 @@ public class SubjectServiceImpl implements SubjectService{
         subject.setName(subjectCreationDto.getName());
         subject.setColorHEX(subjectCreationDto.getColor());
         subject.setUser(user);
-        return subjectRepository.save(subject);
+        Subject savedSubject = subjectRepository.save(subject);
+        return toResponseDto(savedSubject);
     }
 
     @Override
-    public Subject findSubjectById(Long id) {
+    public SubjectResponseDto findSubjectById(Long id) {
         User user = authenticationHelper.getAuthenticatedUser();
-        return subjectRepository.findByIdAndUser(id, user)
+        Subject findedSubject = subjectRepository.findByIdAndUser(id, user)
             .orElseThrow(() -> new SubjectIdNotFoundException("Subjectcnot found or access denied"));
+        return toResponseDto(findedSubject);
     }
 
     @Override
@@ -54,7 +67,7 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
-    public Subject updateSubjectById(SubjectUpdateDto subjectUpdateDto, Long id) {
+    public SubjectResponseDto updateSubjectById(SubjectUpdateDto subjectUpdateDto, Long id) {
         User user = authenticationHelper.getAuthenticatedUser();
 
         Subject subject = subjectRepository.findByIdAndUser(id, user)
@@ -72,6 +85,7 @@ public class SubjectServiceImpl implements SubjectService{
             subject.setColorHEX(subjectUpdateDto.getColor());
         }
 
-        return subjectRepository.save(subject);
+        Subject updatedSubject = subjectRepository.save(subject);
+        return toResponseDto(updatedSubject);
     }
 }

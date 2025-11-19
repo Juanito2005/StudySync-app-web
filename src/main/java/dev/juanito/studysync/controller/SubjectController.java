@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.juanito.studysync.dto.SubjectCreationDto;
+import dev.juanito.studysync.dto.SubjectResponseDto;
 import dev.juanito.studysync.dto.SubjectUpdateDto;
-import dev.juanito.studysync.model.Subject;
 import dev.juanito.studysync.service.SubjectService;
 import jakarta.validation.Valid;
 
@@ -29,14 +29,14 @@ public class SubjectController {
     }
 
     @PostMapping
-    public ResponseEntity<Subject> createSubject(@Valid @RequestBody SubjectCreationDto subjectCreationDto) {
-        Subject newSubject = subjectService.createSubject(subjectCreationDto);
+    public ResponseEntity<SubjectResponseDto> createSubject(@Valid @RequestBody SubjectCreationDto subjectCreationDto) {
+        SubjectResponseDto newSubject = subjectService.createSubject(subjectCreationDto);
         return new ResponseEntity<>(newSubject, HttpStatus.CREATED);
     }
-    // Recuerdame porque es @PathVariable instead @PathParam
+
     @GetMapping("/{id}")
-    public ResponseEntity<Subject> getSubject(@PathVariable Long id) {
-        Subject subject = subjectService.findSubjectById(id);
+    public ResponseEntity<SubjectResponseDto> getSubject(@PathVariable Long id) {
+        SubjectResponseDto subject = subjectService.findSubjectById(id);
         return new ResponseEntity<>(subject, HttpStatus.OK);
     }
     
@@ -47,8 +47,8 @@ public class SubjectController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Subject> updateSubject(@Valid @RequestBody SubjectUpdateDto subjectUpdateDto, @PathVariable Long id) {
-        Subject subjectUpdated = subjectService.updateSubjectById(subjectUpdateDto, id);
+    public ResponseEntity<SubjectResponseDto> updateSubject(@Valid @RequestBody SubjectUpdateDto subjectUpdateDto, @PathVariable Long id) {
+        SubjectResponseDto subjectUpdated = subjectService.updateSubjectById(subjectUpdateDto, id);
         return new ResponseEntity<>(subjectUpdated, HttpStatus.OK);
     }
 }
