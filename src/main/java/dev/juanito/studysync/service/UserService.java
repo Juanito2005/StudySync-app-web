@@ -1,6 +1,7 @@
 package dev.juanito.studysync.service;
 
 import dev.juanito.studysync.dto.UserRegistrationDto;
+import dev.juanito.studysync.dto.UserResponseDto;
 import dev.juanito.studysync.dto.UserUpdateDto;
 import dev.juanito.studysync.model.User;
 
@@ -8,13 +9,13 @@ import dev.juanito.studysync.model.User;
 public interface UserService {
 
     // The methods are public by default so the UserController can wacht them
-    User registerUser(UserRegistrationDto userRegistrationDto);
+    UserResponseDto registerUser(UserRegistrationDto userRegistrationDto);
 
-    User findUserById(Long id);
+    UserResponseDto findUserById(Long id);
 
     void deleteUserById(Long id);
 
-    User updatedUserById(Long id, UserUpdateDto userUpdateDto);
+    UserResponseDto updatedUserById(Long id, UserUpdateDto userUpdateDto);
 
     User findUserByEmail(String email);
 
