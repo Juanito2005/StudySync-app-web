@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.juanito.studysync.dto.UserRegistrationDto;
+import dev.juanito.studysync.dto.UserResponseDto;
 import dev.juanito.studysync.dto.UserUpdateDto;
-import dev.juanito.studysync.model.User;
 import dev.juanito.studysync.service.UserService;
 import jakarta.validation.Valid;
 
@@ -28,14 +28,14 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@Valid @RequestBody UserRegistrationDto userRegistrationDto) {
-        User newUser = userService.registerUser(userRegistrationDto);
+    public ResponseEntity<UserResponseDto> registerUser(@Valid @RequestBody UserRegistrationDto userRegistrationDto) {
+        UserResponseDto newUser = userService.registerUser(userRegistrationDto);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findUserByItsId(@PathVariable Long id) {
-        User user = userService.findUserById(id);
+    public ResponseEntity<UserResponseDto> findUserByItsId(@PathVariable Long id) {
+        UserResponseDto user = userService.findUserById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
@@ -46,8 +46,8 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<User> updateUserByItsId(@PathVariable Long id, @RequestBody UserUpdateDto userUpdateDto) {
-        User userUpdated = userService.updatedUserById(id, userUpdateDto);
+    public ResponseEntity<UserResponseDto> updateUserByItsId(@PathVariable Long id, @RequestBody UserUpdateDto userUpdateDto) {
+        UserResponseDto userUpdated = userService.updatedUserById(id, userUpdateDto);
         return new ResponseEntity<>(userUpdated, HttpStatus.OK);
     }
 }
