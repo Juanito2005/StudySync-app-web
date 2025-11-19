@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import dev.juanito.studysync.dto.UserRegistrationDto;
+import dev.juanito.studysync.dto.UserResponseDto;
 import dev.juanito.studysync.dto.UserUpdateDto;
 import dev.juanito.studysync.exception.EmailAlreadyExistException;
 import dev.juanito.studysync.exception.UserEmailNotFoundException;
@@ -29,26 +30,36 @@ public class UserServiceImpl implements UserService {
         this.authenticationHelper = authenticationHelper;
     }
 
+    private UserResponseDto toUserResponseDto(User user) {
+        UserResponseDto dto = new UserResponseDto();
+        dto.setId(user.getId());
+        dto.setName(user.getName());
+        dto.setEmail(user.getEmail());
+        return dto;
+    }
+
     /* Returning a user instead nothing (void) is key because we could know important things such as the Id or date from the
     created user*/
     @Override
-    public User registerUser(UserRegistrationDto userRegistrationDto) {
+    public UserResponseDto registerUser(UserRegistrationDto userRegistrationDto) {
         checkIfEmailExist(userRegistrationDto.getEmail());
         User user = new User();
         user.setName(userRegistrationDto.getName());
         user.setEmail(userRegistrationDto.getEmail());
         String hashedPassword = passwordEncoder.encode(userRegistrationDto.getPassword());
         user.setPassword(hashedPassword);
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        return toUserResponseDto(savedUser);
     }
 
     @Override
-    public User findUserById(Long id) {
+    public UserResponseDto findUserById(Long id) {
         User authenticatedUser = authenticationHelper.getAuthenticatedUser();
         if (!authenticatedUser.getId().equals(id)) {
             throw new UserIdNotFoundException("Access denied: You can only view your own profile");
         }
-        return userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException("The user Id has not been found"));
+        User user = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException("The user Id has not been found"));
+        return toUserResponseDto(user);
     }
 
     @Override
@@ -61,7 +72,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updatedUserById(Long id, UserUpdateDto userUpdateDto) {
+    public UserResponseDto updatedUserById(Long id, UserUpdateDto userUpdateDto) {
         User authenticatedUser = authenticationHelper.getAuthenticatedUser();
         if (!authenticatedUser.getId().equals(id)) {
             throw new UserIdNotFoundException("Access denied: You can only update your own profile");
@@ -73,7 +84,8 @@ public class UserServiceImpl implements UserService {
         if (userUpdateDto.getName() != null) {
             authenticatedUser.setName(userUpdateDto.getName());
         }
-        return userRepository.save(authenticatedUser);
+        User updatedUser = userRepository.save(authenticatedUser);
+        return toUserResponseDto(updatedUser);
     }
 
     @Override
