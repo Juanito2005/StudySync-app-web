@@ -53,7 +53,7 @@ public class SubjectServiceImpl implements SubjectService{
     public SubjectResponseDto findSubjectById(Long id) {
         User user = authenticationHelper.getAuthenticatedUser();
         Subject findedSubject = subjectRepository.findByIdAndUser(id, user)
-            .orElseThrow(() -> new SubjectIdNotFoundException("Subjectcnot found or access denied"));
+            .orElseThrow(() -> new SubjectIdNotFoundException("Subjectc not found or access denied"));
         return toResponseDto(findedSubject);
     }
 
