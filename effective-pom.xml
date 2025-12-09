@@ -1,18 +1,78 @@
 [INFO] Scanning for projects...
 Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.5.0/maven-enforcer-plugin-3.5.0.pom
-Progress (1): 1.4/8.1 kBProgress (1): 2.8/8.1 kBProgress (1): 4.1/8.1 kBProgress (1): 5.5/8.1 kBProgress (1): 6.9/8.1 kBProgress (1): 8.1 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.5.0/maven-enforcer-plugin-3.5.0.pom (8.1 kB at 13 kB/s)
+Progress (1): 1.4/8.1 kB
+Progress (1): 2.8/8.1 kB
+Progress (1): 4.1/8.1 kB
+Progress (1): 5.5/8.1 kB
+Progress (1): 6.9/8.1 kB
+Progress (1): 8.1 kB    
+                    
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.5.0/maven-enforcer-plugin-3.5.0.pom (8.1 kB at 13 kB/s)
 Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer/3.5.0/enforcer-3.5.0.pom
-Progress (1): 1.4/9.3 kBProgress (1): 2.8/9.3 kBProgress (1): 4.1/9.3 kBProgress (1): 5.5/9.3 kBProgress (1): 6.9/9.3 kBProgress (1): 8.3/9.3 kBProgress (1): 9.3 kB                        Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer/3.5.0/enforcer-3.5.0.pom (9.3 kB at 157 kB/s)
+Progress (1): 1.4/9.3 kB
+Progress (1): 2.8/9.3 kB
+Progress (1): 4.1/9.3 kB
+Progress (1): 5.5/9.3 kB
+Progress (1): 6.9/9.3 kB
+Progress (1): 8.3/9.3 kB
+Progress (1): 9.3 kB    
+                    
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer/3.5.0/enforcer-3.5.0.pom (9.3 kB at 157 kB/s)
 Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.5.0/maven-enforcer-plugin-3.5.0.jar
-Progress (1): 1.4/39 kBProgress (1): 2.8/39 kBProgress (1): 4.1/39 kBProgress (1): 5.5/39 kBProgress (1): 6.9/39 kBProgress (1): 8.3/39 kBProgress (1): 9.7/39 kBProgress (1): 11/39 kB Progress (1): 12/39 kBProgress (1): 14/39 kBProgress (1): 15/39 kBProgress (1): 17/39 kBProgress (1): 18/39 kBProgress (1): 19/39 kBProgress (1): 21/39 kBProgress (1): 22/39 kBProgress (1): 23/39 kBProgress (1): 25/39 kBProgress (1): 26/39 kBProgress (1): 28/39 kBProgress (1): 29/39 kBProgress (1): 30/39 kBProgress (1): 32/39 kBProgress (1): 33/39 kBProgress (1): 34/39 kBProgress (1): 36/39 kBProgress (1): 37/39 kBProgress (1): 39/39 kBProgress (1): 39 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.5.0/maven-enforcer-plugin-3.5.0.jar (39 kB at 725 kB/s)
+Progress (1): 1.4/39 kB
+Progress (1): 2.8/39 kB
+Progress (1): 4.1/39 kB
+Progress (1): 5.5/39 kB
+Progress (1): 6.9/39 kB
+Progress (1): 8.3/39 kB
+Progress (1): 9.7/39 kB
+Progress (1): 11/39 kB 
+Progress (1): 12/39 kB
+Progress (1): 14/39 kB
+Progress (1): 15/39 kB
+Progress (1): 17/39 kB
+Progress (1): 18/39 kB
+Progress (1): 19/39 kB
+Progress (1): 21/39 kB
+Progress (1): 22/39 kB
+Progress (1): 23/39 kB
+Progress (1): 25/39 kB
+Progress (1): 26/39 kB
+Progress (1): 28/39 kB
+Progress (1): 29/39 kB
+Progress (1): 30/39 kB
+Progress (1): 32/39 kB
+Progress (1): 33/39 kB
+Progress (1): 34/39 kB
+Progress (1): 36/39 kB
+Progress (1): 37/39 kB
+Progress (1): 39/39 kB
+Progress (1): 39 kB   
+                   
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.5.0/maven-enforcer-plugin-3.5.0.jar (39 kB at 725 kB/s)
 Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-failsafe-plugin/3.5.3/maven-failsafe-plugin-3.5.3.pom
-Progress (1): 11 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-failsafe-plugin/3.5.3/maven-failsafe-plugin-3.5.3.pom (11 kB at 397 kB/s)
+Progress (1): 11 kB
+                   
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-failsafe-plugin/3.5.3/maven-failsafe-plugin-3.5.3.pom (11 kB at 397 kB/s)
 Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-failsafe-plugin/3.5.3/maven-failsafe-plugin-3.5.3.jar
-Progress (1): 16/57 kBProgress (1): 33/57 kBProgress (1): 49/57 kBProgress (1): 57 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-failsafe-plugin/3.5.3/maven-failsafe-plugin-3.5.3.jar (57 kB at 721 kB/s)
+Progress (1): 16/57 kB
+Progress (1): 33/57 kB
+Progress (1): 49/57 kB
+Progress (1): 57 kB   
+                   
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-failsafe-plugin/3.5.3/maven-failsafe-plugin-3.5.3.jar (57 kB at 721 kB/s)
 Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-help-plugin/3.5.1/maven-help-plugin-3.5.1.pom
-Progress (1): 10 kB                   Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-help-plugin/3.5.1/maven-help-plugin-3.5.1.pom (10 kB at 327 kB/s)
+Progress (1): 10 kB
+                   
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-help-plugin/3.5.1/maven-help-plugin-3.5.1.pom (10 kB at 327 kB/s)
 Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-help-plugin/3.5.1/maven-help-plugin-3.5.1.jar
-Progress (1): 15/65 kBProgress (1): 31/65 kBProgress (1): 48/65 kBProgress (1): 64/65 kBProgress (1): 65 kB                      Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-help-plugin/3.5.1/maven-help-plugin-3.5.1.jar (65 kB at 1.4 MB/s)
+Progress (1): 15/65 kB
+Progress (1): 31/65 kB
+Progress (1): 48/65 kB
+Progress (1): 64/65 kB
+Progress (1): 65 kB   
+                   
+Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-help-plugin/3.5.1/maven-help-plugin-3.5.1.jar (65 kB at 1.4 MB/s)
 [INFO] 
 [INFO] -----------------------< dev.juanito:studysync >------------------------
 [INFO] Building studysync 0.0.1-SNAPSHOT
@@ -8020,15 +8080,15 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <version>5.10.2</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
+      <scope>test</sc/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
+    </dependency>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
+    <dependency>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
+      <groupId>org.mo/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
+      <artifactId>mockito/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
       <version>5.2.0</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
+    <dependency>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
       <groupId>org.mockito</groupId>
       <artifactId>mockito-junit-jupiter</artifactId>
       <version>5.2.0</version>
@@ -8036,7 +8096,7 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-validation</artifactId>
+      <artifactId>s/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
       <version>3.5.4</version>
       <scope>compile</scope>
     </dependency>
@@ -8046,10 +8106,10 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
       <version>0.12.5</version>
       <scope>compile</scope>
     </dependency>
-    <dependency>
+    <dependency>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt-impl</artifactId>
-      <version>0.12.5</version>
+      <version>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
       <scope>runtime</scope>
     </dependency>
     <dependency>
@@ -8070,7 +8130,7 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
     </repository>
   </repositories>
   <pluginRepositories>
-    <pluginRepository>
+    <pluginRepository>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
@@ -8080,36 +8140,36 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
     </pluginRepository>
   </pluginRepositories>
   <build>
-    <sourceDirectory>C:\Users\Equipo\Documents\Personal's projects\studysync\src\main\java</sourceDirectory>
-    <scriptSourceDirectory>C:\Users\Equipo\Documents\Personal's projects\studysync\src\main\scripts</scriptSourceDirectory>
-    <testSourceDirectory>C:\Users\Equipo\Documents\Personal's projects\studysync\src\test\java</testSourceDirectory>
-    <outputDirectory>C:\Users\Equipo\Documents\Personal's projects\studysync\target\classes</outputDirectory>
-    <testOutputDirectory>C:\Users\Equipo\Documents\Personal's projects\studysync\target\test-classes</testOutputDirectory>
+    <sourceDirectory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\src\main\java</sourceDirectory>
+    <scriptSourceDirectory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\src\main\scripts</scriptSourceDirectory>
+    <testSourceDirectory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\src\test\java</testSourceDirectory>
+    <outputDirectory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\target\classes</outputDirectory>
+    <testOutputDirectory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\target\test-classes</testOutputDirectory>
     <resources>
       <resource>
         <filtering>true</filtering>
-        <directory>C:\Users\Equipo\Documents\Personal's projects\studysync\src\main\resources</directory>
+        <directory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\src\main\resources</directory>
         <includes>
           <include>**/application*.yml</include>
           <include>**/application*.yaml</include>
           <include>**/application*.properties</include>
         </includes>
-      </resource>
+      </resource>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
       <resource>
-        <directory>C:\Users\Equipo\Documents\Personal's projects\studysync\src\main\resources</directory>
+        <directory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\src\main\resources</directory>
         <excludes>
           <exclude>**/application*.yml</exclude>
           <exclude>**/application*.yaml</exclude>
           <exclude>**/application*.properties</exclude>
-        </excludes>
+        </excludes>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
       </resource>
     </resources>
     <testResources>
       <testResource>
-        <directory>C:\Users\Equipo\Documents\Personal's projects\studysync\src\test\resources</directory>
+        <directory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\src\test\resources</directory>
       </testResource>
     </testResources>
-    <directory>C:\Users\Equipo\Documents\Personal's projects\studysync\target</directory>
+    <directory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\target</directory>
     <finalName>studysync-0.0.1-SNAPSHOT</finalName>
     <pluginManagement>
       <plugins>
@@ -8130,7 +8190,7 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
               </goals>
               <configuration>
                 <projectType>application</projectType>
-                <outputDirectory>C:\Users\Equipo\Documents\Personal's projects\studysync\target\classes/META-INF/sbom</outputDirectory>
+                <outputDirectory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\target\classes/META-INF/sbom</outputDirectory>
                 <outputFormat>json</outputFormat>
                 <outputName>application.cdx</outputName>
               </configuration>
@@ -8154,14 +8214,14 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
               <configuration>
                 <verbose>true</verbose>
                 <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                <generateGitPropertiesFilename>C:\Users\Equipo\Documents\Personal's projects\studysync\target\classes/git.properties</generateGitPropertiesFilename>
+                <generateGitPropertiesFilename>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\target\classes/git.properties</generateGitPropertiesFilename>
               </configuration>
             </execution>
           </executions>
           <configuration>
             <verbose>true</verbose>
             <generateGitPropertiesFile>true</generateGitPropertiesFile>
-            <generateGitPropertiesFilename>C:\Users\Equipo\Documents\Personal's projects\studysync\target\classes/git.properties</generateGitPropertiesFilename>
+            <generateGitPropertiesFilename>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\target\classes/git.properties</generateGitPropertiesFilename>
           </configuration>
         </plugin>
         <plugin>
@@ -8192,12 +8252,12 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
                 <goal>test-compile</goal>
               </goals>
               <configuration>
-                <jvmTarget>21</jvmTarget>
+                <jvmTarget>21</jvm/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
                 <javaParameters>true</javaParameters>
               </configuration>
             </execution>
           </executions>
-          <configuration>
+          <configuration>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
             <jvmTarget>21</jvmTarget>
             <javaParameters>true</javaParameters>
           </configuration>
@@ -8252,12 +8312,12 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
                 <goal>verify</goal>
               </goals>
               <configuration>
-                <classesDirectory>C:\Users\Equipo\Documents\Personal's projects\studysync\target\classes</classesDirectory>
+                <classesDirectory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\target\classes</classesDirectory>
               </configuration>
             </execution>
           </executions>
           <configuration>
-            <classesDirectory>C:\Users\Equipo\Documents\Personal's projects\studysync\target\classes</classesDirectory>
+            <classesDirectory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\target\classes</classesDirectory>
           </configuration>
         </plugin>
         <plugin>
@@ -8579,7 +8639,7 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
               </archive>
             </configuration>
           </execution>
-        </executions>
+        </executions>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
         <configuration>
           <archive>
             <manifest>
@@ -8595,7 +8655,7 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
         <executions>
           <execution>
             <id>default-test</id>
-            <phase>test</phase>
+            <phase>test</phase>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
             <goals>
               <goal>test</goal>
             </goals>
@@ -8606,7 +8666,7 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
         <artifactId>maven-install-plugin</artifactId>
         <version>3.1.4</version>
         <executions>
-          <execution>
+          <execution>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
             <id>default-install</id>
             <phase>install</phase>
             <goals>
@@ -8618,7 +8678,7 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
       <plugin>
         <artifactId>maven-deploy-plugin</artifactId>
         <version>3.1.4</version>
-        <executions>
+        <executions>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync
           <execution>
             <id>default-deploy</id>
             <phase>deploy</phase>
@@ -8639,7 +8699,7 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
               <goal>site</goal>
             </goals>
             <configuration>
-              <outputDirectory>C:\Users\Equipo\Documents\Personal's projects\studysync\target\site</outputDirectory>
+              <outputDirectory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\target\site</outputDirectory>
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -8655,7 +8715,7 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
               <goal>deploy</goal>
             </goals>
             <configuration>
-              <outputDirectory>C:\Users\Equipo\Documents\Personal's projects\studysync\target\site</outputDirectory>
+              <outputDirectory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\target\site</outputDirectory>
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -8666,7 +8726,7 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
           </execution>
         </executions>
         <configuration>
-          <outputDirectory>C:\Users\Equipo\Documents\Personal's projects\studysync\target\site</outputDirectory>
+          <outputDirectory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\target\site</outputDirectory>
           <reportPlugins>
             <reportPlugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -8678,7 +8738,7 @@ Effective POMs, after inheritance, interpolation, and profiles are applied:
     </plugins>
   </build>
   <reporting>
-    <outputDirectory>C:\Users\Equipo\Documents\Personal's projects\studysync\target\site</outputDirectory>
+    <outputDirectory>/Users/chimuelo0505/Documents/Personal\'s\ projects/studysync\target\site</outputDirectory>
   </reporting>
 </project>
 

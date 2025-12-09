@@ -1,0 +1,23 @@
+meta {
+  name: Loggin
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/api/auth/login
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "email": "user@esnova.com",
+      "password": "esnova"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
