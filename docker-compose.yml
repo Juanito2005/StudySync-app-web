@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: studysync-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234      # Esta es la contraseña de root
+      MYSQL_DATABASE: studysync_db   # Base de datos inicial
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
