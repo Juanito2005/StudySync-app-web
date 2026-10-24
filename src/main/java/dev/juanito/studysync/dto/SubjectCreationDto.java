@@ -12,9 +12,9 @@ import lombok.Setter;
 @Setter
 public class SubjectCreationDto {
 
-    @NotBlank(message = "The name cannot be blank")
+    @NotBlank(message = "El nombre no puede estar vacío")
     public String name;
 
-    @NotBlank(message = "The color cannot be blank")
+    @NotBlank(message = "El color no puede estar vacío")
     public String color;
 }

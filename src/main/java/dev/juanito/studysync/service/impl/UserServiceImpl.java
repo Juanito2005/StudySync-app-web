@@ -1,30 +1,30 @@
 package dev.juanito.studysync.service.impl;
 
-import dev.juanito.studysync.model.User;
-
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import dev.juanito.studysync.dto.UserRegistrationDto;
 import dev.juanito.studysync.dto.UserResponseDto;
 import dev.juanito.studysync.dto.UserUpdateDto;
 import dev.juanito.studysync.exception.EmailAlreadyExistException;
 import dev.juanito.studysync.exception.UserEmailNotFoundException;
 import dev.juanito.studysync.exception.UserIdNotFoundException;
+import dev.juanito.studysync.model.User;
 import dev.juanito.studysync.repository.UserRepository;
 import dev.juanito.studysync.security.AuthenticationHelper;
 import dev.juanito.studysync.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    // Dependency injection so this class isn't accopled to the repository
-    // @AutoWired is not recommended
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationHelper authenticationHelper;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationHelper authenticationHelper) {
+    public UserServiceImpl(
+        UserRepository userRepository,
+        PasswordEncoder passwordEncoder,
+        AuthenticationHelper authenticationHelper
+    ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationHelper = authenticationHelper;
@@ -38,15 +38,17 @@ public class UserServiceImpl implements UserService {
         return dto;
     }
 
-    /* Returning a user instead nothing (void) is key because we could know important things such as the Id or date from the
-    created user*/
     @Override
-    public UserResponseDto registerUser(UserRegistrationDto userRegistrationDto) {
+    public UserResponseDto registerUser(
+        UserRegistrationDto userRegistrationDto
+    ) {
         checkIfEmailExist(userRegistrationDto.getEmail());
         User user = new User();
         user.setName(userRegistrationDto.getName());
         user.setEmail(userRegistrationDto.getEmail());
-        String hashedPassword = passwordEncoder.encode(userRegistrationDto.getPassword());
+        String hashedPassword = passwordEncoder.encode(
+            userRegistrationDto.getPassword()
+        );
         user.setPassword(hashedPassword);
         User savedUser = userRepository.save(user);
         return toUserResponseDto(savedUser);
@@ -56,9 +58,15 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto findUserById(Long id) {
         User authenticatedUser = authenticationHelper.getAuthenticatedUser();
         if (!authenticatedUser.getId().equals(id)) {
-            throw new UserIdNotFoundException("Access denied: You can only view your own profile");
+            throw new UserIdNotFoundException(
+                "Acceso denegado: solo puedes ver tu propio perfil"
+            );
         }
-        User user = userRepository.findById(id).orElseThrow(() -> new UserIdNotFoundException("The user Id has not been found"));
+        User user = userRepository
+            .findById(id)
+            .orElseThrow(() ->
+                new UserIdNotFoundException("El usuario no ha sido encontrado")
+            );
         return toUserResponseDto(user);
     }
 
@@ -66,16 +74,23 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Long id) {
         User authenticatedUser = authenticationHelper.getAuthenticatedUser();
         if (!authenticatedUser.getId().equals(id)) {
-            throw new UserIdNotFoundException("Access denied: You can only delete your own profile");
+            throw new UserIdNotFoundException(
+                "Acceso denegado: solo puedes eliminar tu propio perfil"
+            );
         }
         userRepository.delete(authenticatedUser);
     }
 
     @Override
-    public UserResponseDto updatedUserById(Long id, UserUpdateDto userUpdateDto) {
+    public UserResponseDto updatedUserById(
+        Long id,
+        UserUpdateDto userUpdateDto
+    ) {
         User authenticatedUser = authenticationHelper.getAuthenticatedUser();
         if (!authenticatedUser.getId().equals(id)) {
-            throw new UserIdNotFoundException("Access denied: You can only update your own profile");
+            throw new UserIdNotFoundException(
+                "Acceso denegado: solo puedes actualizar tu propio perfil"
+            );
         }
         if (userUpdateDto.getEmail() != null) {
             checkIfEmailExist(userUpdateDto.getEmail());
@@ -90,13 +105,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new UserEmailNotFoundException("The email doesn't exists"));
+        return userRepository
+            .findByEmail(email)
+            .orElseThrow(() ->
+                new UserEmailNotFoundException(
+                    "El correo no existe en el sistema"
+                )
+            );
     }
 
     public void checkIfEmailExist(String email) {
         if (userRepository.findByEmail(email).isPresent()) {
-            throw new EmailAlreadyExistException("A user with this email already exist");
+            throw new EmailAlreadyExistException(
+                "Ya existe un usuario con este correo"
+            );
         }
     }
-
 }

@@ -1,8 +1,5 @@
 package dev.juanito.studysync.service.impl;
 
-import java.util.Optional;
-import org.springframework.stereotype.Service;
-
 import dev.juanito.studysync.dto.SubjectCreationDto;
 import dev.juanito.studysync.dto.SubjectResponseDto;
 import dev.juanito.studysync.dto.SubjectUpdateDto;
@@ -13,14 +10,21 @@ import dev.juanito.studysync.model.User;
 import dev.juanito.studysync.repository.SubjectRepository;
 import dev.juanito.studysync.security.AuthenticationHelper;
 import dev.juanito.studysync.service.SubjectService;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @Service
-public class SubjectServiceImpl implements SubjectService{
+public class SubjectServiceImpl implements SubjectService {
 
     private final SubjectRepository subjectRepository;
     private final AuthenticationHelper authenticationHelper;
 
-    public SubjectServiceImpl(SubjectRepository subjectRepository, AuthenticationHelper authenticationHelper) {
+    public SubjectServiceImpl(
+        SubjectRepository subjectRepository,
+        AuthenticationHelper authenticationHelper
+    ) {
         this.subjectRepository = subjectRepository;
         this.authenticationHelper = authenticationHelper;
     }
@@ -36,10 +40,18 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
-    public SubjectResponseDto createSubject(SubjectCreationDto subjectCreationDto) {
+    public SubjectResponseDto createSubject(
+        SubjectCreationDto subjectCreationDto
+    ) {
         User user = authenticationHelper.getAuthenticatedUser();
-        if (subjectRepository.findByNameAndUser(subjectCreationDto.getName(), user).isPresent()) {
-            throw new SubjectNameAlreadyExistsException("You already have a subject with this name");
+        if (
+            subjectRepository
+                .findByNameAndUser(subjectCreationDto.getName(), user)
+                .isPresent()
+        ) {
+            throw new SubjectNameAlreadyExistsException(
+                "Ya tienes una materia con este nombre, compa"
+            );
         }
         Subject subject = new Subject();
         subject.setName(subjectCreationDto.getName());
@@ -50,33 +62,68 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
+    public List<SubjectResponseDto> findSubjectsByUser() {
+        User user = authenticationHelper.getAuthenticatedUser();
+        List<Subject> subjects = subjectRepository.findByUser(user);
+        return subjects
+            .stream()
+            .map(this::toResponseDto)
+            .collect(Collectors.toList());
+    }
+
+    @Override
     public SubjectResponseDto findSubjectById(Long id) {
         User user = authenticationHelper.getAuthenticatedUser();
-        Subject findedSubject = subjectRepository.findByIdAndUser(id, user)
-            .orElseThrow(() -> new SubjectIdNotFoundException("Subjectc not found or access denied"));
-        return toResponseDto(findedSubject);
+        Subject subject = subjectRepository
+            .findByIdAndUser(id, user)
+            .orElseThrow(() ->
+                new SubjectIdNotFoundException(
+                    "Materia no encontrada o acceso denegado"
+                )
+            );
+        return toResponseDto(subject);
     }
 
     @Override
     public void deleteSubjectById(Long id) {
         User user = authenticationHelper.getAuthenticatedUser();
-        // Since an Optional type is returned, the exceptions must been handle
-        Subject subject = subjectRepository.findByIdAndUser(id, user)
-            .orElseThrow(() -> new SubjectIdNotFoundException("Subject not found or access denied"));
+        Subject subject = subjectRepository
+            .findByIdAndUser(id, user)
+            .orElseThrow(() ->
+                new SubjectIdNotFoundException(
+                    "Materia no encontrada o acceso denegado"
+                )
+            );
         subjectRepository.delete(subject);
     }
 
     @Override
-    public SubjectResponseDto updateSubjectById(SubjectUpdateDto subjectUpdateDto, Long id) {
+    public SubjectResponseDto updateSubjectById(
+        SubjectUpdateDto subjectUpdateDto,
+        Long id
+    ) {
         User user = authenticationHelper.getAuthenticatedUser();
-
-        Subject subject = subjectRepository.findByIdAndUser(id, user)
-            .orElseThrow(() -> new SubjectIdNotFoundException("Subject not found or access denied"));
+        Subject subject = subjectRepository
+            .findByIdAndUser(id, user)
+            .orElseThrow(() ->
+                new SubjectIdNotFoundException(
+                    "Materia no encontrada o acceso denegado"
+                )
+            );
 
         if (subjectUpdateDto.getName() != null) {
-            Optional<Subject> existingSubject = subjectRepository.findByNameAndUser(subjectUpdateDto.getName(), user);
-            if (existingSubject.isPresent() && !existingSubject.get().getId().equals(id)) {
-                throw new SubjectNameAlreadyExistsException("You already have a subject with this name");
+            Optional<Subject> existingSubject =
+                subjectRepository.findByNameAndUser(
+                    subjectUpdateDto.getName(),
+                    user
+                );
+            if (
+                existingSubject.isPresent() &&
+                !existingSubject.get().getId().equals(id)
+            ) {
+                throw new SubjectNameAlreadyExistsException(
+                    "Ya tienes una materia con este nombre, compa"
+                );
             }
             subject.setName(subjectUpdateDto.getName());
         }

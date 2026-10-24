@@ -1,0 +1,27 @@
+meta {
+  name: Update a User
+  type: http
+  seq: 7
+}
+
+put {
+  url: http://localhost:8080/api/users/update/3
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiJ9.eyJpZCI6Mywic3ViIjoidXNlckBlc25vdmEuY29tIiwiaWF0IjoxNzc5ODk1MzY4LCJleHAiOjE3Nzk5ODE3Njh9.Mo0RbcEvbTenNUs9KZRfkyIly7-9S9libxEdPzqSsY8
+}
+
+body:json {
+  {
+      "name": "Camilo",
+      "password": "esnova"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
